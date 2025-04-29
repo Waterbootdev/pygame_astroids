@@ -32,20 +32,20 @@ def main():
        
         player.update(delta_time)
         
-        fill_draw_flip(screen, player)
+        draw_frame(screen, player)
         
         delta_time = clock.tick(FRAM_RATE) / 1000
     
 
-def fill_draw_flip(screen, player):
+def draw_frame(screen, player):
     
     screen.fill(BLACK)
 
-    draw_frame(screen, player)
+    draw_to_back_screen(screen, player)
 
     pygame.display.flip()
 
-def draw_frame(screen, player):
+def draw_to_back_screen(screen, player):
     player.draw(screen)
 
 
