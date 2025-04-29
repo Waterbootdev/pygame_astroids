@@ -20,7 +20,7 @@ def main():
     Asteroid.containers = (astroids, updatables, drawables)
     AsteroidField.containers = (updatables)
 
-    _ = Player(HALF_SCREEN_WIDTH, HALF_SCREEN_HEIGHT)
+    player = Player(HALF_SCREEN_WIDTH, HALF_SCREEN_HEIGHT)
 
     _ = AsteroidField()
 
@@ -35,19 +35,31 @@ def main():
     while True :
 
         total_time += delta_time
-        
+
         if not handle_events():
-            print(f"FPS : {frame_count/total_time}")
+            print_fps(total_time, frame_count)
             return
         else:
             frame_count += 1
-
+        
         updatables.update(delta_time)       
-        
+
+        check_game_over(player, astroids, total_time, frame_count)
+
         draw_frame(screen, drawables)
-        
+
         delta_time = clock.tick(FRAM_RATE) / 1000
+
+def print_fps(total_time, frame_count):
+    print(f"FPS : {frame_count/total_time}")
     
+
+def check_game_over(player, astroids,total_time, frame_count):
+    for astroid in astroids:
+        if player.check_for_colision_with(astroid):
+            print_fps(total_time, frame_count)
+            print("Game over!")
+            raise SystemExit(0)
 
 def draw_frame(screen, drawables):
     
