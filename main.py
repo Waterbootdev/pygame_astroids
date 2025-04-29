@@ -15,7 +15,7 @@ def main():
 
     Player.containers = (updatables, drawables)
 
-    player = Player(HALF_SCREEN_WIDTH, HALF_SCREEN_HEIGHT)
+    _ = Player(HALF_SCREEN_WIDTH, HALF_SCREEN_HEIGHT)
 
     screen = get_sreen()
 
