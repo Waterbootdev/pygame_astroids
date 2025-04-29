@@ -30,6 +30,7 @@ def main():
         else:
             frame_count += 1
        
+        player.update(delta_time)
         
         fill_draw_flip(screen, player)
         
