@@ -4,7 +4,7 @@
 import pygame
 
 from constants import *
-from constants import SCREEN_HEIGHT, SCREEN_WIDTH, BLACK
+from constants import SCREEN_HEIGHT, SCREEN_WIDTH, BLACK, FRAM_RATE
 
 
 
@@ -14,11 +14,30 @@ def main():
 
     screen = get_sreen()
 
+    clock = pygame.time.Clock()
+    delta_time = 0
+    total_time = 0
+    frame_count = 0
+
     while True :
+
+        total_time += delta_time
+        
         if not handle_events():
+            print(f"FPS : {frame_count/total_time}")
             return
-        screen.fill(BLACK)
-        pygame.display.flip()
+        else:
+            frame_count += 1
+       
+        
+        fill_and_flip(screen)
+        
+        delta_time = clock.tick(FRAM_RATE) / 1000
+    
+
+def fill_and_flip(screen):
+    screen.fill(BLACK)
+    pygame.display.flip()
 
 def handle_events():
     for event in pygame.event.get():
