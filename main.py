@@ -10,6 +10,11 @@ def main():
   
     init_pygame()
 
+    updatables = pygame.sprite.Group()
+    drawables = pygame.sprite.Group()
+
+    Player.containers = (updatables, drawables)
+
     player = Player(HALF_SCREEN_WIDTH, HALF_SCREEN_HEIGHT)
 
     screen = get_sreen()
@@ -29,25 +34,25 @@ def main():
             return
         else:
             frame_count += 1
-       
-        player.update(delta_time)
+
+        updatables.update(delta_time)       
         
-        draw_frame(screen, player)
+        draw_frame(screen, drawables)
         
         delta_time = clock.tick(FRAM_RATE) / 1000
     
 
-def draw_frame(screen, player):
+def draw_frame(screen, drawables):
     
     screen.fill(BLACK)
 
-    draw_to_back_screen(screen, player)
+    draw_group(screen, drawables)
 
     pygame.display.flip()
 
-def draw_to_back_screen(screen, player):
-    player.draw(screen)
-
+def draw_group(sreen, drawables):
+    for drawable in drawables:
+        drawable.draw(sreen)
 
 def handle_events():
     for event in pygame.event.get():
